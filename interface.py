@@ -187,19 +187,6 @@ class HammingInterface():
                 (dataTable.entries[5][18]).config(state=NORMAL)
                 (dataTable.entries[6][18]).config(state=NORMAL)
 
-                (dataTable.entries[1][18]).insert(0, encoded[0])
-                (dataTable.entries[1][18]).insert(0, encoded[1])
-                (dataTable.entries[1][18]).insert(0, encoded[3])
-                (dataTable.entries[1][18]).insert(0, encoded[7])
-                (dataTable.entries[1][18]).insert(0, encoded[15])
-
-                (dataTable.entries[1][18]).config(state=DISABLED)
-                (dataTable.entries[2][18]).config(state=DISABLED)
-                (dataTable.entries[3][18]).config(state=DISABLED)
-                (dataTable.entries[4][18]).config(state=DISABLED)
-                (dataTable.entries[5][18]).config(state=DISABLED)
-                (dataTable.entries[6][18]).config(state=DISABLED)
-
                 if encoded[0] == correct[0]:
                     positionError="0"+positionError
                 else:
@@ -222,17 +209,19 @@ class HammingInterface():
                     positionError="1"+positionError;
 
             except Exception as e:
-                print(str(e))
                 msgbox=Toplevel()
                 msgbox.minsize(500,200)
                 message=Label(msgbox,text="Debe ingresar un dígito nada más, y binario",font=fnt)
                 message.place(x=250, y=100, anchor="center")
 
-            detectError=int(positionError,2)
-            if(detectError==0):
-                errorLabel.configure(text="There is no error in the received message.")
-            else:
-                errorLabel.configure(text="The position of error is "+ str(detectError)+ " from the left")
+            try:
+                detectError=int(positionError,2)
+                if(detectError==0):
+                    errorLabel.configure(text="There is no error in the received message.")
+                else:
+                    errorLabel.configure(text="The position of error is "+ str(detectError)+ " from the left")
+            except:
+                pass
 
         backButton = Button(hammingWindow, text='Back', font=fnt, command=back)
         backButton.place(x=1000, y=0, anchor=NE)
