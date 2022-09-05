@@ -33,4 +33,11 @@ def octolToBinaryOrHexa(number, binaryOrHexa):
         temporalNumber = coeficient
     return resultValue
 
+def decimalToBinary(ip_val, string=""):
+    if ip_val >= 1:
+        string = str(ip_val % 2)+string
+        return decimalToBinary(ip_val // 2, string)
+    return string
+
+
         
